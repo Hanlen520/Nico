@@ -1,6 +1,4 @@
 import setuptools
-from setuptools import setup, find_packages
-import glob
 
 with open("README.md", "r", encoding='UTF-8') as fh:
     long_description = fh.read()
@@ -12,19 +10,21 @@ def parse_requirements(filename):
 
 
 setuptools.setup(
-    name="adb_uiautomator",
-    version="1.0.1",
-    author="hank.huang",
-    author_email="hank.huang550@gmail.com",
-    description="A cross-platform desktop automated testing framework.",
+    name="AutoNico",
+    version="1.2.10",
+    author="Hank Hang",
+    author_email="hanhuang@jabra.com",
+    description="Provide Basic Interface to conrol Mobile UI.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/letmeNo1/Makima",
+    url="https://github.com/letmeNo1/nico",
     packages=setuptools.find_packages(),
     package_data={
-        'adb_uiautomator': ['libs/start_auto.sh', 'libs/uiautomator.jar']
+        'auto_nico': ['package/android_test.apk', 'package/app.apk','console_scripts/inspector_web/templates/xml_template.html',
+                        'console_scripts/inspector_web/static/*']
     },
     install_requires=[
+        'opencv-python',
         'lxml',
     ],
     classifiers=[
@@ -32,6 +32,14 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    entry_points={
+        'console_scripts': [
+            'nico_dump = auto_nico.console_scripts.dump_ui:main',
+            'nico_screenshot = auto_nico.console_scripts.screenshot:main',
+            'nico_ui = auto_nico.console_scripts.inspector_web.nico_inspector:main',
+            'nico_uninstall_apk = auto_nico.console_scripts.uninstall_apk:main',
+
+        ],
+    },
     python_requires='>=3.6',
-    include_package_data = True
-)
+    include_package_data=True)
